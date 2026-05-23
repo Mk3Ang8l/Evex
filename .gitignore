@@ -1,0 +1,39 @@
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.test.exe
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
+build/bin/
+frontend/dist/
+
+# Temp
+*.tmp
+*.temp
+*.log
+
+# Evex
+concept.md
+changelog.md
+rule.md
