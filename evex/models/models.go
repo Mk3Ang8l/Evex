@@ -1,11 +1,18 @@
 package models
 
+import "time"
+
 type Project struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	CreatedAt   string `json:"created_at"`
 	UpdatedAt   string `json:"updated_at"`
+}
+
+func NewProject(id, name, desc string) Project {
+	now := time.Now().Format(time.RFC3339)
+	return Project{ID: id, Name: name, Description: desc, CreatedAt: now, UpdatedAt: now}
 }
 
 type Section struct {
@@ -18,6 +25,10 @@ type Section struct {
 	CreatedAt string   `json:"created_at"`
 }
 
+func NewSection(id, projectID, title string) Section {
+	return Section{ID: id, ProjectID: projectID, Title: title, CreatedAt: time.Now().Format(time.RFC3339)}
+}
+
 type Source struct {
 	ID        string `json:"id"`
 	SectionID string `json:"section_id"`
@@ -25,9 +36,13 @@ type Source struct {
 	URL       string `json:"url"`
 	Snippet   string `json:"snippet"`
 	Content   string `json:"content"`
-	Tags      string `json:"tags"`
+	Tags      []string `json:"tags"`
 	Notes     string `json:"notes"`
 	CreatedAt string `json:"created_at"`
+}
+
+func NewSource(id, sectionID, title, url string) Source {
+	return Source{ID: id, SectionID: sectionID, Title: title, URL: url, CreatedAt: time.Now().Format(time.RFC3339)}
 }
 
 type Asset struct {

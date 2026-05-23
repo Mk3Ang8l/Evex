@@ -42,9 +42,13 @@ function App() {
     if (!go || !selectedProject) return;
     const title = prompt("Titre de la section :");
     if (!title) return;
-    await go.CreateSection(selectedProject, title);
-    const list = await go.GetSections(selectedProject);
-    setSections(list);
+    try {
+      await go.CreateSection(selectedProject, title);
+      const list = await go.GetSections(selectedProject);
+      setSections(list);
+    } catch (e) {
+      console.error("CreateSection failed", e);
+    }
   };
 
   if (view === "welcome") {

@@ -5,7 +5,6 @@ import (
 	"crypto/rand"
 	"fmt"
 	"math/big"
-	"time"
 
 	"evex/database"
 	"evex/models"
@@ -34,7 +33,7 @@ func (a *App) startup(ctx context.Context) {
 
 // fonction qui cree des projets
 func (a *App) CreateProject(name string, description string) (models.Project, error) {
-	p := models.Project{ID: newID(), Name: name, Description: description}
+	p := models.NewProject(newID(), name, description)
 	return p, a.db.AddProject(p)
 }
 
@@ -45,7 +44,7 @@ func (a *App) GetProjects() ([]models.Project, error) {
 
 // fonction qui crée des sections
 func (a *App) CreateSection(projectID string, title string) (models.Section, error) {
-	s := models.Section{ID: newID(), ProjectID: projectID, Title: title, CreatedAt: time.Now().Format(time.RFC3339)}
+	s := models.NewSection(newID(), projectID, title)
 	return s, a.db.AddSection(s)
 }
 
@@ -56,7 +55,7 @@ func (a *App) GetSections(projectID string) ([]models.Section, error) {
 
 // fonction qui crée des sources
 func (a *App) AddSource(sectionID string, title string, url string) (models.Source, error) {
-	s := models.Source{ID: newID(), SectionID: sectionID, Title: title, URL: url}
+	s := models.NewSource(newID(), sectionID, title, url)
 	return s, a.db.AddSource(s)
 }
 
@@ -66,9 +65,9 @@ func (a *App) GetSources(sectionID string) ([]models.Source, error) {
 }
 
 // fonction qui crée des assets
-func (a *App) AddAsset(sourceID string, path string) (models.Asset, error) {
-	a := models.Asset{ID: newID(), SourceID: sourceID, Path: path}
-	return a, a.db.AddAsset(a)
+func (a *App) AddAsset(sourceID string, filename string) (models.Asset, error) {
+	asset := models.Asset{ID: newID(), SourceID: sourceID, Filename: filename}
+	return asset, a.db.AddAsset(asset)
 }
 
 func newID() string {

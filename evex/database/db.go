@@ -95,6 +95,13 @@ func (db *DB) AddSource(s models.Source) error {
 	return db.save()
 }
 
+func (db *DB) AddAsset(a models.Asset) error {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	db.Data.Assets = append(db.Data.Assets, a)
+	return db.save()
+}
+
 func (db *DB) GetSources(sectionID string) []models.Source {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
